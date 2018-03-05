@@ -1,1 +1,1 @@
-# nordic_workshop
+# Nordic Workshop
