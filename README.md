@@ -37,6 +37,7 @@ Scope: Modify the ble_app_uart example to recognise specific commands sent from 
 ### Step 1: Change the device name
 
 Open the ble_app_uart example found in the nRF5_SDK_14.2.0\examples\ble_peripheral\ble_app_uart\pca10040\s132\ses folder. Find the `DEVICE_NAME` define and change the device to a unique name that is easily recognisable, for example.
+
 #define DEVICE_NAME                     "Sigurd_UART"       
 
 
