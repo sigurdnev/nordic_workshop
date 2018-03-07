@@ -66,12 +66,12 @@ In Segger Embedded Studio this should look something like this:
 
 ### Step 3
 
-Find the function `nus_data_handler`. This function is called when data is sent to the Nordic UART Service(NUS) from the nRF Toolbox app and this is where we have to look for the specific commands. The data that has been received is stored in a array pointed to by the `p_data` pointer and we need to store it a local array for later use. This can be done by using the [memcpy](https://www.tutorialspoint.com/c_standard_library/c_function_memcpy.htm) function. It will copy the content from cell 0 to `length` in the array pointed to by p_data into the uart_string.      
+Find the function `nus_data_handler`. This function is called when data is sent to the Nordic UART Service(NUS) from the nRF Toolbox app and this is where we have to look for the specific commands. The data that has been received is stored in a array pointed to by the `p_data` pointer and we need to store it in a local array for later use. This can be done by using the [memcpy](https://www.tutorialspoint.com/c_standard_library/c_function_memcpy.htm) function. It will copy the content from cell 0 to `length` in the array pointed to by p_data into the uart_string.      
 
 ```C  
     char uart_string[BLE_NUS_MAX_DATA_LEN];
     memset(uart_string,0,BLE_NUS_MAX_DATA_LEN);
-    memcpy( uart_string, p_data, length);
+    memcpy(uart_string, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
 ```
 ### Step 4
 
@@ -139,8 +139,9 @@ After declaring the `uart_command_handler` we add the uart_command_handler to th
 ```C 
     for (;;)
         {
-            uart_command_handler(&m_command);
-            power_manage();
+        UNUSED_RETURN_VALUE(NRF_LOG_PROCESS());
+        uart_command_handler(&m_command);
+        power_manage();
         }
 ```
 
@@ -159,7 +160,8 @@ We also have to configure the pin connected to LED_4 as an output so make sure t
 
 ### Step 7
 
-Compile the project and flash it to the nRF52 DK. Make sure that you've also flashed the S132 v3.0 SoftDevice to your board. LED 1 on the nRF52 DK should start blinking, indicating that its advertising.  We've now completed the configuration on the nRF52 side  
+Compile the project by pressing the F7 key, and flash it to the nRF52 DK. You can flash the project by clicking on the Target tab, and click on "Download ble_app_uart_pca10040_s132". You can also start a debug session by pressing the F5 key twice. 
+The Segger Embedded Studio project have already been configured to flash the SoftDevice for us. LED 1 on the nRF52 DK should start blinking, indicating that its advertising.  We've now completed the configuration on the nRF52 side  
 
 ### Step 8
 
