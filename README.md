@@ -180,7 +180,5 @@ Press the Connect button, this should bring up a list of nearby BLE devices. Sel
 
 <img src="https://github.com/bjornspockeli/elektra/blob/master/images/device_list.png" width="200">
 
-### Step 10
-
-Pressing the button we configured to send "COMMAND_1" to the nRF52 DK should turn on LED 4 on the nRF52 DK. Pressing it again should turn it off. Congratulations, you've just controlled one of the GPIO pins of the nRF52 using Bluetooth Low Energy.
+You can now press the button we configured to send "COMMAND_1" to the nRF52 DK. This should turn on LED 4 on the nRF52 DK. Pressing it again should turn it off. Congratulations, you've just controlled one of the GPIO pins of the nRF52 using Bluetooth Low Energy.
 
