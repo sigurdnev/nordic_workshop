@@ -183,4 +183,84 @@ Press the Connect button, this should bring up a list of nearby BLE devices. Sel
 You can now press the button we configured to send "COMMAND_1" to the nRF52 DK. This should turn on LED 4 on the nRF52 DK. Pressing it again should turn it off. Congratulations, you've just controlled one of the GPIO pins of the nRF52 using Bluetooth Low Energy.
 
 ## TASK 2: Measure the die temperature of the nRF52 and send it to the nRF Toolbox app.
+**Scope:**  Measure the temperature of the nRF52 die and use an application timer to send the measurement to the nRF Toolbox App,
+
+1 - In order to measure the temperature of the nRF52 die you have to read the registers of the TEMP peripheral of the nRF52, see [this](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.nrf52832.ps.v1.1/temp.html?cp=2_2_0_26#concept_fcz_vw4_sr) page on the Nordic Infocenter. However, the SoftDevice uses this peripheral to calibrate the clock of the nRF52 so that its accurate enough to be used for BLE. We can therefore not access the TEMP registers directly, we have to go through the SoftDevice and ask it to check what the temperature is. This is done by calling the [sd_temp_get](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.s132.api.v3.0.0/group___n_r_f___s_o_c___f_u_n_c_t_i_o_n_s.html#gade0ea69f513ff1feab2c4f6e1c393313
+) function. 
+
+
+We can now create a function called `read_temperature()` that in turn calls `sd_temp_get` and returns the temperature in degrees celsius.
+
+```C 
+    static double read_temperature()
+    {
+        int32_t temp;
+        sd_temp_get(&temp);
+
+        return ((double)temp*0.25);   
+    }
+```
+
+3 - Next, we're going to create an application timer that calls `read_temperature()` periodically. First, create the timer ID as shown below
+
+```C 
+    APP_TIMER_DEF(m_temp_timer_id);                 // Create the timer ID "m_temp_timer_id" .
+```
+
+4 - Next, we're going to create the application timer timeout handler that is going to call `read_temperature()`. We need to use the `ble_nus_string_send()` function to send the measured temperature to the nRF Toolbox app. This function takes the pointer to an `uint8_t` array so we need to format a string and place it in the array. The  [sprintf](https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm) function does exactly this, i.e. copies the content of a string into an array.
+
+```C
+    void temp_timer_timeout_handler(void * p_context)
+    {
+        double temp = read_temperature();
+
+        // Place the temperature measurement into the data array
+        uint32_t err_code;
+        uint8_t data[20];
+        sprintf((char *)data, "Temperature: %f", temp);
+        
+        //Send temperature measurement to nRF Toolbox app
+        err_code = ble_nus_string_send(&m_nus, data, sizeof(data));
+        APP_ERROR_CHECK(err_code);
+    }
+```
+
+
+5 - Next, we need to create the timer and specify that it should use `temp_timer_timeout_handler` as its timeout handler.
+
+```C 
+    void create_timers()
+    {
+        uint32_t err_code;
+        // Create  temperature timer
+        err_code = app_timer_create(&m_temp_timer_id,
+                                    APP_TIMER_MODE_REPEATED,
+                                    temp_timer_timeout_handler);
+        APP_ERROR_CHECK(err_code);
+    }
+```
+6 - Now, the only thing that remains is to start the application timer. However, it is important that the `ble_nus_string_send` function is not called when we're not connected to the nRF Toolbox app. If we try to send the string containing the temperature without being in a connection then the application will crash.  It should therefore only be possible to start the timer when we issue a command from nRF Toolbox.  
+
+Add `TEMP_TIMER_START` and `TEMP_TIMER_STOP` to the uart_command_t enumeration and modify the `nus_data_handler` so that these commands are recognized.
+
+
+Lastly, add the following cases to the `uart_command_handler`
+
+```C 
+        case TEMP_TIMER_START:
+            err_code = app_timer_start(m_temp_timer_id, APP_TIMER_TICKS(1000, APP_TIMER_PRESCALER), NULL);
+            APP_ERROR_CHECK(err_code);
+            break;
+        
+        case TEMP_TIMER_STOP:
+            err_code = app_timer_stop(m_temp_timer_id);
+            APP_ERROR_CHECK(err_code);
+            break;
+```
+
+7 - Configure two buttons in the nRF Toolbox app to send the `TEMP_TIMER_START`and `TEMP_TIMER_STOP` commands
+
+8 - Compile the project and flash it to you nRF52 DK along with the S132 v3.0.0 SoftDevice if its not already flashed to the DK. After pressing the btton you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
+ 
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
 
