@@ -3,6 +3,8 @@
 
 ## HW Requirements
 - nRF52 Development Kit 
+- Computer
+- Micro USB Cable
 
 ## SW Requirements
 All participants must download the following software:
