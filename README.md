@@ -61,7 +61,7 @@ Every variable of the uart_command_t type can be set to one of the commands in t
 
 In Segger Embedded Studio this should look something like this:
 
-<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task1_Step2.PNG" width="600"> 
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task1_Step2.PNG" width="800"> 
 
 
 ### Step 3
