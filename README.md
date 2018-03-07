@@ -10,3 +10,16 @@
 - nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)
 - nRF Command Line Tools [download page](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.tools/dita/tools/nrf5x_command_line_tools/nrf5x_installation.html?cp=5_1_1)
 
+# Hands-on Tasks 
+The hands-on tasks in this workshop ... .. .. ...
+
+## TASK 1
+
+### Step 1
+
+
+## TASK 2
+
+### Step 1
+
+
