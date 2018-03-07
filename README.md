@@ -16,12 +16,12 @@ All participants must download the following software:
 
 
 - Latest version of Segger Embedded Studio [download page](https://www.segger.com/downloads/embedded-studio/)
- <pre>
- 1.	Download and install Segger Embedded Studio v3.34 for your operation system by clicking the download page link above:
- 2.	Run the installer and follow the instructions.
- 3.	Start Segger Embedded Studio and follow the steps in the SEGGER Embedded studio – Getting started video to
-      install the free SES license. (link: https://www.youtube.com/watch?v=YZouRE_Ol8g&t=334s)
- </pre>
+    <pre>
+    1.	Download and install Segger Embedded Studio v3.34 for your operation system by clicking the download page link above:
+    2.	Run the installer and follow the instructions. [download page](https://www.segger.com/downloads/embedded-studio/)
+    </pre>
+    For commercial use, follow the steps in the SEGGER Embedded studio – Getting started video to
+         install the free SES license. Link to video [Here](https://www.youtube.com/watch?v=YZouRE_Ol8g&t=334s)
 
 - nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)
 - nRF Command Line Tools [download page](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.tools/dita/tools/nrf5x_command_line_tools/nrf5x_installation.html?cp=5_1_1)
@@ -30,8 +30,9 @@ All participants must download the following software:
 The hands-on tasks in this workshop ... .. .. ...
 
 ## TASK 1
+Scope: Modify the ble_app_uart example to recognise specific commands sent from the nRF Toolbox app and turn on a LED when one of these commands are received.
 
-### Step 1
+### Step 1: Control LEDs using the nRF Toolbox App
 
 
 ## TASK 2
