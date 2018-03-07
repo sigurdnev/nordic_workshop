@@ -203,14 +203,14 @@ We can now create a function called `read_temperature()` that in turn calls `sd_
     }
 ```
 
-### Step 3
+### Step 2
 Next, we're going to create an application timer that calls `read_temperature()` periodically. First, create the timer ID as shown below
 
 ```C 
     APP_TIMER_DEF(m_temp_timer_id);                 // Create the timer ID "m_temp_timer_id" .
 ```
 
-### Step 4
+### Step 3
 Next, we're going to create the application timer timeout handler that is going to call `read_temperature()`. We need to use the `ble_nus_string_send()` function to send the measured temperature to the nRF Toolbox app. This function takes the pointer to an `uint8_t` array so we need to format a string and place it in the array. The  [sprintf](https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm) function does exactly this, i.e. copies the content of a string into an array.
 
 ```C
@@ -229,8 +229,8 @@ Next, we're going to create the application timer timeout handler that is going 
     }
 ```
 
-
-5 - Next, we need to create the timer and specify that it should use `temp_timer_timeout_handler` as its timeout handler.
+### Step 4
+Next, we need to create the timer and specify that it should use `temp_timer_timeout_handler` as its timeout handler.
 
 ```C 
     void create_timers()
@@ -243,7 +243,8 @@ Next, we're going to create the application timer timeout handler that is going 
         APP_ERROR_CHECK(err_code);
     }
 ```
-6 - Now, the only thing that remains is to start the application timer. However, it is important that the `ble_nus_string_send` function is not called when we're not connected to the nRF Toolbox app. If we try to send the string containing the temperature without being in a connection then the application will crash.  It should therefore only be possible to start the timer when we issue a command from nRF Toolbox.  
+### Step 5
+Now, the only thing that remains is to start the application timer. However, it is important that the `ble_nus_string_send` function is not called when we're not connected to the nRF Toolbox app. If we try to send the string containing the temperature without being in a connection then the application will crash.  It should therefore only be possible to start the timer when we issue a command from nRF Toolbox.  
 
 Add `TEMP_TIMER_START` and `TEMP_TIMER_STOP` to the uart_command_t enumeration and modify the `nus_data_handler` so that these commands are recognized.
 
@@ -262,9 +263,11 @@ Lastly, add the following cases to the `uart_command_handler`
             break;
 ```
 
-7 - Configure two buttons in the nRF Toolbox app to send the `TEMP_TIMER_START`and `TEMP_TIMER_STOP` commands
+### Step 6
+Configure two buttons in the nRF Toolbox app to send the `TEMP_TIMER_START`and `TEMP_TIMER_STOP` commands
 
-8 - Compile the project and flash it to you nRF52 DK along with the S132 v3.0.0 SoftDevice if its not already flashed to the DK. After pressing the btton you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
+### Step 7
+Compile the project and flash it to you nRF52 DK along with the S132 v3.0.0 SoftDevice if its not already flashed to the DK. After pressing the btton you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
  
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
 
