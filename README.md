@@ -17,8 +17,8 @@ All participants must download the following software:
 
 - Latest version of Segger Embedded Studio [download page](https://www.segger.com/downloads/embedded-studio/)
     <pre>
-    1.	Download and install Segger Embedded Studio v3.34 for your operation system by clicking the download page link above:
-    2.	Run the installer and follow the instructions. [download page](https://www.segger.com/downloads/embedded-studio/)
+    1.	Download and install Segger Embedded Studio for your operating system .
+    2.	Run the installer and follow the installer instructions.
     </pre>
     For commercial use, follow the steps in the SEGGER Embedded studio – Getting started video to
          install the free SES license. Link to video [Here](https://www.youtube.com/watch?v=YZouRE_Ol8g&t=334s)
