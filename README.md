@@ -171,14 +171,14 @@ Install the nRF Toolbox app on you Android/iOS phone. You can find the app [here
 
 nRF Toolbox Menu  | UART Menu     | Edit Button Menu| Configure Command 1 | Edit Mode | Edit Completed |
 ------------ | ------------- | ------------  | ------------  | ------------  | ------------  |
-<img src="https://github.com/bjornspockeli/elektra/blob/master/images/nrf_toolbox.png" width="200"> | <img src="https://github.com/bjornspockeli/elektra/blob/master/images/default.png" width="200"> | <img src="https://github.com/bjornspockeli/elektra/blob/master/images/edit.png" width="200"> | <img src="https://github.com/bjornspockeli/elektra/blob/master/images/command_1.png" width="200"> | <img src="https://github.com/bjornspockeli/elektra/blob/master/images/edit_done.png" width="200"> | <img src="https://github.com/bjornspockeli/elektra/blob/master/images/done.png" width="200">
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/nrf_toolbox.png" width="200"> | <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/default.png" width="200"> | <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/edit.png" width="200"> | <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/command_1.png" width="200"> | <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/edit_done.png" width="200"> | <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/done.png" width="200">
 
 
 ### Step 9
 
 Press the Connect button, this should bring up a list of nearby BLE devices. Select the device with the name you assigned in step 1 of this task. It should be the one of the devices with the strongest signal. LED 1 on your nRF52 DK should now stop blinking and stay lit, indicating that its in a connected state. 
 
-<img src="https://github.com/bjornspockeli/elektra/blob/master/images/device_list.png" width="200">
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/device_list.png" width="200">
 
 You can now press the button we configured to send "COMMAND_1" to the nRF52 DK. This should turn on LED 4 on the nRF52 DK. Pressing it again should turn it off. Congratulations, you've just controlled one of the GPIO pins of the nRF52 using Bluetooth Low Energy.
 
