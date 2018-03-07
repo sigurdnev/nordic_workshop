@@ -22,7 +22,7 @@ All participants must download the following software:
     1.	Download and install Segger Embedded Studio for your operating system .
     2.	Run the installer and follow the installer instructions.
     </pre>
-    For commercial use, follow the steps in the SEGGER Embedded studio – Getting started video to
+    For commercial use of Embedded Studio, follow the steps in the SEGGER Embedded studio – Getting started video to
          install the free SES license. Link to video [Here](https://www.youtube.com/watch?v=YZouRE_Ol8g&t=334s)
 
 - nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)
