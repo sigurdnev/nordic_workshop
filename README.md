@@ -59,6 +59,11 @@ Every variable of the uart_command_t type can be set to one of the commands in t
     uart_command_t m_command = NO_COMMAND;
 ```
 
+In Segger Embedded Studio this should look something like this:
+
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task1_Step2.PNG" width="600"> 
+
+
 ### Step 3
 
 Find the function `nus_data_handler`. This function is called when data is sent to the Nordic UART Service(NUS) from the nRF Toolbox app and this is where we have to look for the specific commands. The data that has been received is stored in a array pointed to by the `p_data` pointer and we need to store it a local array for later use. This can be done by using the [memcpy](https://www.tutorialspoint.com/c_standard_library/c_function_memcpy.htm) function. It will copy the content from cell 0 to `length` in the array pointed to by p_data into the uart_string.      
