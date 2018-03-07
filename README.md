@@ -221,10 +221,12 @@ Next, we're going to create the application timer timeout handler that is going 
         // Place the temperature measurement into the data array
         uint32_t err_code;
         uint8_t data[20];
+        
         sprintf((char *)data, "Temperature: %f", temp);
+        uint16_t length = sizeof(data);
         
         //Send temperature measurement to nRF Toolbox app
-        err_code = ble_nus_string_send(&m_nus, data, sizeof(data));
+        err_code = ble_nus_string_send(&m_nus, data, &length);
         APP_ERROR_CHECK(err_code);
     }
 ```
@@ -253,7 +255,7 @@ Lastly, add the following cases to the `uart_command_handler`
 
 ```C 
         case TEMP_TIMER_START:
-            err_code = app_timer_start(m_temp_timer_id, APP_TIMER_TICKS(1000, APP_TIMER_PRESCALER), NULL);
+            err_code = app_timer_start(m_temp_timer_id, APP_TIMER_TICKS(1000),NULL);
             APP_ERROR_CHECK(err_code);
             break;
         
