@@ -31,7 +31,7 @@ All participants must download the following software:
 # Hands-on Tasks 
 The hands-on tasks in this workshop ... .. .. ...
 
-## TASK 1: Control LEDs using the nRF Toolbox App and 
+## TASK 1: Control LEDs using the nRF Toolbox App
 Scope: Modify the ble_app_uart example to recognise specific commands sent from the nRF Toolbox app and turn on a LED when one of these commands are received.
 
 ### Step 1: Change the device name
@@ -181,4 +181,6 @@ Press the Connect button, this should bring up a list of nearby BLE devices. Sel
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/device_list.png" width="200">
 
 You can now press the button we configured to send "COMMAND_1" to the nRF52 DK. This should turn on LED 4 on the nRF52 DK. Pressing it again should turn it off. Congratulations, you've just controlled one of the GPIO pins of the nRF52 using Bluetooth Low Energy.
+
+## TASK 2: Measure the die temperature of the nRF52 and send it to the nRF Toolbox app.
 
