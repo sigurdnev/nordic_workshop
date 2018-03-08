@@ -223,7 +223,7 @@ Next, we're going to create the application timer timeout handler that is going 
         uint32_t err_code;
         uint8_t data[20];
         
-        sprintf((char *)data, "Temperature: %f", temp);
+        sprintf((char *)data, "Temperature: %0.2f", temp);
         uint16_t length = sizeof(data);
         
         //Send temperature measurement to nRF Toolbox app
@@ -247,7 +247,7 @@ Next, we need to create the timer and specify that it should use `temp_timer_tim
     }
 ```
 ### Step 5
-Now, the only thing that remains is to start the application timer. However, it is important that the `ble_nus_string_send` function is not called when we're not connected to the nRF Toolbox app. If we try to send the string containing the temperature without being in a connection then the application will crash.  It should therefore only be possible to start the timer when we issue a command from nRF Toolbox.  
+Now, the only thing that remains is to start the application timer. However, it is important that the `ble_nus_string_send` function is not called when we're not connected to the nRF Toolbox app. If we try to send the string containing the temperature without being in a connection then the ble_nus_string_send function will return NRF_ERROR_INVALID_STATE, and this will be passed into the APP_ERROR_CHECK() error-handler. It should therefore only be possible to start the timer when we issue a command from nRF Toolbox.  
 
 Add `TEMP_TIMER_START` and `TEMP_TIMER_STOP` to the uart_command_t enumeration and modify the `nus_data_handler` so that these commands are recognized.
 
