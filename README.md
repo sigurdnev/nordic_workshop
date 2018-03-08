@@ -269,6 +269,10 @@ Lastly, add the following cases to the `uart_command_handler`
 Configure two buttons in the nRF Toolbox app to send the `TEMP_TIMER_START`and `TEMP_TIMER_STOP` commands
 
 ### Step 7
+Before compiling the project, we need to configure Embedded Studio to allow the data type `double` to be used by the sprintf function.
+In the Project Explorer on the left side, right click on "Project 'ble_app_uart_pca10040_s132', and click `Edit Options...`
+
+### Step 8
 Compile the project and flash it to you nRF52 DK along with the S132 v3.0.0 SoftDevice if its not already flashed to the DK. After pressing the btton you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
  
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
