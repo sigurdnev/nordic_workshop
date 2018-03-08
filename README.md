@@ -285,3 +285,10 @@ Compile the project and flash it to you nRF52 DK.  After pressing the button you
  
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
 
+
+## TASK 3: Creating a Custom Service
+Scope: The aim of this task is simply to create one service with one characteristic without too much theory in between the steps. There are no .c or .h files that needs to be downloaded as we will be starting from scratch in the ble_app_template project.
+This is a larger task than the previous tasks, and it takes more time to finish this task. It's not expected that you finish this task within the time period of the workshop, but it’s a task that you can start on during the workshop, and finish and play around with after the workshop. 
+
+
+
