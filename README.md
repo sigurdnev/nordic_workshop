@@ -289,6 +289,12 @@ Compile the project and flash it to you nRF52 DK.  After pressing the button you
 ## TASK 3: Measure the supply voltage using the SAADC and send it to the nRF Toolbox app.
 Scope: Use the SAADC peripheral to measure the supply voltage, and use an application timer to send the measurement to the nRF Toolbox App.
 
+### Step 1
+
+### Step 2
+
+### Step 3
+
 
 ## TASK 4: Creating a Custom Service
 Scope: The aim of this task is simply to create one service with one characteristic without too much theory in between the steps. In this task we will be starting from scratch in the ble_app_template project.
