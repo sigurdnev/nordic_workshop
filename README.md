@@ -270,11 +270,15 @@ Configure two buttons in the nRF Toolbox app to send the `TEMP_TIMER_START`and `
 
 ### Step 7
 Before compiling the project, we need to configure Embedded Studio to allow the data type `double` to be used by the sprintf function.
-In the Project Explorer on the left side, right click on "Project 'ble_app_uart_pca10040_s132', and click `Edit Options...`
+In the Project Explorer on the left side, right click on **Project 'ble_app_uart_pca10040_s132**, and click `Edit Options...`
 
 Select the Common configuration as shown in the image below.
 
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task2_Step7.png" width="200">
+
+Click on Printf/Scanf, and set the option `Printf Floating Point Supported` to `Double`. Press OK to apply the change.
+
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task2_Step7_2.png" width="400">
 
 ### Step 8
 Compile the project and flash it to you nRF52 DK along with the S132 v3.0.0 SoftDevice if its not already flashed to the DK. After pressing the btton you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
