@@ -281,7 +281,7 @@ Click on Printf/Scanf, and set the option `Printf Floating Point Supported` to `
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task2_Step7_2.png" width="400">
 
 ### Step 8
-Compile the project and flash it to you nRF52 DK along with the S132 v3.0.0 SoftDevice if its not already flashed to the DK. After pressing the btton you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
+Compile the project and flash it to you nRF52 DK.  After pressing the button you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
  
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
 
