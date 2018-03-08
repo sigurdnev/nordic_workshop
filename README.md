@@ -2,7 +2,7 @@
 
 
 ## HW Requirements
-- nRF52 Development Kit 
+- nRF52 Development Kit
 - Computer
 - Micro USB Cable
 
@@ -29,7 +29,7 @@ All participants must download the following software:
 - **nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)**
 
 
-# Hands-on Tasks 
+# Hands-on Tasks
 The hands-on tasks in this workshop ... .. .. ...
 
 ## TASK 1: Control LEDs using the nRF Toolbox App
@@ -62,7 +62,7 @@ Every variable of the uart_command_t type can be set to one of the commands in t
 
 In Segger Embedded Studio this should look something like this:
 
-<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task1_Step2.PNG" width="800"> 
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task1_Step2.PNG" width="800">
 
 
 ### Step 3
@@ -76,7 +76,7 @@ Find the function `nus_data_handler`. This function is called when data is sent 
 ```
 ### Step 4
 
-Now that we have copied the received data into the `uart_string` array we want to compare the content of `uart_string` with a known command. This can be done by using the [strcmp](https://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm) function, which will return 0 if `uart_string` is equal to the 
+Now that we have copied the received data into the `uart_string` array we want to compare the content of `uart_string` with a known command. This can be done by using the [strcmp](https://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm) function, which will return 0 if `uart_string` is equal to the
 
 ```C  
     if(strcmp(uart_string,"COMMAND_1") == 0 )
@@ -124,7 +124,7 @@ Now that the `m_command` variable is set to the correct command if the correct s
             case NO_COMMAND:
                 // No command has been received -> Do nothing
                 break;
-                
+
             default:
                 // Invalid command -> Do nothing.
                 break;
@@ -132,12 +132,12 @@ Now that the `m_command` variable is set to the correct command if the correct s
         /* Reset the command variable to NO_COMMAND after a command has been handled */
         *m_command = NO_COMMAND;
 
-        // Check for errors 
+        // Check for errors
         APP_ERROR_CHECK(err_code);
     }
 ```
-After declaring the `uart_command_handler` we add the uart_command_handler to the infinite for-loop in main as shown below. 
-```C 
+After declaring the `uart_command_handler` we add the uart_command_handler to the infinite for-loop in main as shown below.
+```C
     for (;;)
         {
         UNUSED_RETURN_VALUE(NRF_LOG_PROCESS());
@@ -148,20 +148,20 @@ After declaring the `uart_command_handler` we add the uart_command_handler to th
 
 ### Step 6
 
-Now we want to toggle a led when we receive "COMMAND_1". Since the ble_app_uart example uses LED_1 on the nRF52 DK to indicate if the device is advertising or connected to central, so we have to toggle LED_4 instead. 
-```C 
+Now we want to toggle a led when we receive "COMMAND_1". Since the ble_app_uart example uses LED_1 on the nRF52 DK to indicate if the device is advertising or connected to central, so we have to toggle LED_4 instead.
+```C
     case COMMAND_1:
-        nrf_gpio_pin_toggle(LED_4); 
+        nrf_gpio_pin_toggle(LED_4);
         break;
 ```
 We also have to configure the pin connected to LED_4 as an output so make sure that you add to main()
-```C 
-    nrf_gpio_cfg_output(LED_4); 
+```C
+    nrf_gpio_cfg_output(LED_4);
 ```
 
 ### Step 7
 
-Compile the project by pressing the F7 key, and flash it to the nRF52 DK. You can flash the project by clicking on the Target tab, and click on "Download ble_app_uart_pca10040_s132". The project will also be flahsed when start a debug seesion. A debug session can be started by pressing the F5 key twice. 
+Compile the project by pressing the F7 key, and flash it to the nRF52 DK. You can flash the project by clicking on the Target tab, and click on "Download ble_app_uart_pca10040_s132". The project will also be flahsed when start a debug seesion. A debug session can be started by pressing the F5 key twice.
 The Segger Embedded Studio project have already been configured to flash the SoftDevice for us. LED 1 on the nRF52 DK should start blinking, indicating that its advertising.  We've now completed the configuration on the nRF52 side  
 
 ### Step 8
@@ -177,24 +177,24 @@ nRF Toolbox Menu  | UART Menu     | Edit Button Menu| Configure Command 1 | Edit
 
 ### Step 9
 
-Press the Connect button, this should bring up a list of nearby BLE devices. Select the device with the name you assigned in step 1 of this task. It should be the one of the devices with the strongest signal. LED 1 on your nRF52 DK should now stop blinking and stay lit, indicating that its in a connected state. 
+Press the Connect button, this should bring up a list of nearby BLE devices. Select the device with the name you assigned in step 1 of this task. It should be the one of the devices with the strongest signal. LED 1 on your nRF52 DK should now stop blinking and stay lit, indicating that its in a connected state.
 
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/device_list.png" width="200">
 
 You can now press the button we configured to send "COMMAND_1" to the nRF52 DK. This should turn on LED 4 on the nRF52 DK. Pressing it again should turn it off. Congratulations, you've just controlled one of the GPIO pins of the nRF52 using Bluetooth Low Energy.
 
 ## TASK 2: Measure the die temperature of the nRF52 and send it to the nRF Toolbox app.
-**Scope:**  Measure the temperature of the nRF52 die and use an application timer to send the measurement to the nRF Toolbox App,
+**Scope:**  Measure the temperature of the nRF52 die and use an application timer to send the measurement to the nRF Toolbox App.
 
 ### Step 1
 
 In order to measure the temperature of the nRF52 die you have to read the registers of the TEMP peripheral of the nRF52, see [this](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.nrf52832.ps.v1.1/temp.html?cp=2_2_0_26#concept_fcz_vw4_sr) page on the Nordic Infocenter. However, the SoftDevice uses this peripheral to calibrate the clock of the nRF52 so that its accurate enough to be used for BLE. We can therefore not access the TEMP registers directly, we have to go through the SoftDevice and ask it to check what the temperature is. This is done by calling the [sd_temp_get](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.s132.api.v3.0.0/group___n_r_f___s_o_c___f_u_n_c_t_i_o_n_s.html#gade0ea69f513ff1feab2c4f6e1c393313
-) function. 
+) function.
 
 
 We can now create a function called `read_temperature()` that in turn calls `sd_temp_get` and returns the temperature in degrees celsius.
 
-```C 
+```C
     static double read_temperature()
     {
         int32_t temp;
@@ -207,7 +207,7 @@ We can now create a function called `read_temperature()` that in turn calls `sd_
 ### Step 2
 Next, we're going to create an application timer that calls `read_temperature()` periodically. First, create the timer ID as shown below
 
-```C 
+```C
     APP_TIMER_DEF(m_temp_timer_id);                 // Create the timer ID "m_temp_timer_id" .
 ```
 
@@ -222,10 +222,10 @@ Next, we're going to create the application timer timeout handler that is going 
         // Place the temperature measurement into the data array
         uint32_t err_code;
         uint8_t data[20];
-        
+
         sprintf((char *)data, "Temperature: %0.2f", temp);
         uint16_t length = sizeof(data);
-        
+
         //Send temperature measurement to nRF Toolbox app
         err_code = ble_nus_string_send(&m_nus, data, &length);
         APP_ERROR_CHECK(err_code);
@@ -235,7 +235,7 @@ Next, we're going to create the application timer timeout handler that is going 
 ### Step 4
 Next, we need to create the timer and specify that it should use `temp_timer_timeout_handler` as its timeout handler.
 
-```C 
+```C
     void create_timers()
     {
         uint32_t err_code;
@@ -254,12 +254,12 @@ Add `TEMP_TIMER_START` and `TEMP_TIMER_STOP` to the uart_command_t enumeration a
 
 Lastly, add the following cases to the `uart_command_handler`
 
-```C 
+```C
         case TEMP_TIMER_START:
             err_code = app_timer_start(m_temp_timer_id, APP_TIMER_TICKS(1000),NULL);
             APP_ERROR_CHECK(err_code);
             break;
-        
+
         case TEMP_TIMER_STOP:
             err_code = app_timer_stop(m_temp_timer_id);
             APP_ERROR_CHECK(err_code);
@@ -283,14 +283,13 @@ Click on Printf/Scanf, and set the option `Printf Floating Point Supported` to `
 
 ### Step 8
 Compile the project and flash it to you nRF52 DK.  After pressing the button you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
- 
+
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
+## TASK 3: Measure the supply voltage using the SAADC and send it to the nRF Toolbox app.
+Scope: Use the SAADC peripheral to measure the supply voltage, and use an application timer to send the measurement to the nRF Toolbox App.
 
 
-## TASK 3: Creating a Custom Service
-Scope: The aim of this task is simply to create one service with one characteristic without too much theory in between the steps. There are no .c or .h files that needs to be downloaded as we will be starting from scratch in the ble_app_template project.
+## TASK 4: Creating a Custom Service
+Scope: The aim of this task is simply to create one service with one characteristic without too much theory in between the steps. In this task we will be starting from scratch in the ble_app_template project.
 
-This is a larger task than the previous tasks, and it takes more time to finish this task. It's not expected that you finish this task within the time period of the workshop, but it’s a task that you can start on during the workshop, and finish and play around with also after this workshop. 
-
-
-
+This is a larger task than the previous tasks, and it takes more time to finish this task. It's not expected that you finish this task within the limited time period of the workshop. This is instead a task that you can start on during the workshop, and finish and play around with even after this workshop.
