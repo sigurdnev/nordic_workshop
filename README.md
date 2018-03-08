@@ -285,6 +285,7 @@ Click on Printf/Scanf, and set the option `Printf Floating Point Supported` to `
 Compile the project and flash it to you nRF52 DK.  After pressing the button you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
 
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
+
 ## TASK 3: Measure the supply voltage using the SAADC and send it to the nRF Toolbox app.
 Scope: Use the SAADC peripheral to measure the supply voltage, and use an application timer to send the measurement to the nRF Toolbox App.
 
