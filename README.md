@@ -16,6 +16,7 @@ All participants must download the following software:
     and extract the content of nRF5_SDK_14.2.0_17b948a.zip to this folder.
    </pre>
 
+- **nRF Command Line Tools [download page](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.tools/dita/tools/nrf5x_command_line_tools/nrf5x_installation.html?cp=5_1_1)**
 
 - **Latest version of Segger Embedded Studio [download page](https://www.segger.com/downloads/embedded-studio/)**
     <pre>
@@ -26,7 +27,7 @@ All participants must download the following software:
          install the free SES license. Link to video [Here](https://www.youtube.com/watch?v=YZouRE_Ol8g&t=334s)
 
 - **nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)**
-- **nRF Command Line Tools [download page](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.tools/dita/tools/nrf5x_command_line_tools/nrf5x_installation.html?cp=5_1_1)**
+
 
 # Hands-on Tasks 
 The hands-on tasks in this workshop ... .. .. ...
