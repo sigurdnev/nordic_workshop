@@ -27,7 +27,8 @@ All participants must download the following software:
     For commercial use of Embedded Studio, follow the steps in the SEGGER Embedded studio – Getting started video to
          install the free SES license. Link to video [Here](https://www.youtube.com/watch?v=YZouRE_Ol8g&t=334s)
 
-- **nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)** <sup>Available on the App Store for iOS devices, and Google Play for Android devices</sup>
+- **nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)**
+Available on the App Store for iOS devices, and Google Play for Android devices
 
 
 # Hands-on Tasks
