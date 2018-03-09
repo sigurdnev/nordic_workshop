@@ -185,7 +185,122 @@ Press the Connect button, this should bring up a list of nearby BLE devices. Sel
 
 You can now press the button we configured to send "COMMAND_1" to the nRF52 DK. This should turn on LED 4 on the nRF52 DK. Pressing it again should turn it off. Congratulations, you've just controlled one of the GPIO pins of the nRF52 using Bluetooth Low Energy.
 
-## TASK 2: Measure the die temperature of the nRF52 and send it to the nRF Toolbox app.
+## Task 2: Control the Servo using the nRF Toolbox App
+
+**Scope:** The goal of this task is to include the PWM library in the ble_app_uart example so that we can control the servo from our smartphone. The app_pwm library is documented on [this](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/lib_pwm.html?resultof=%22%61%70%70%5f%70%77%6d%5f%69%6e%69%74%22%20) Infocenter page
+
+Connecting the Servo to your nRF52 DK:
+
+The three wires coming from the SG92R Servo are:
+
+Brown: 	Ground 				- Should be connected to one of the pins marked GND on your nRF52 DK. 
+
+Red: 	5V 					- Should be connected to the pin marked 5V on your nRF52 DK.
+
+Orange: PWM Control Signal 	- Should be connected to one of the unused GPIO pins of the nRF52 DK (for example P0.4, pin number 4).
+
+1 - In order to use the app_pwm library in the ble_app_uart project you have to add the necessary .c and .h files to the project. The app_pwm library uses the following files:
+
+* `app_pwm.h`
+* `app_pwm.c`
+* `nrf_drv_ppi.c`
+* `nrf_drv_timer.c`
+
+### Adding .h files 
+
+<img src="https://github.com/bjornspockeli/elektra/blob/master/images/include_path.PNG" width="1000"> 
+Click the "Options for target" button in Keil, then select the C/C++ tab and clik on the "..." on the side of the "Inlude Paths" window. Navigate to the components folder and then find the missing .h file in either nrf_drivers or libraries. 
+
+### Adding .c files
+ 
+<img src="https://github.com/bjornspockeli/elektra/blob/master/images/add_c_files.png" width="1000"> 
+Right-clik the folder that you want to add the .c file to and select "Add existing files to Group '____'". Navigate to the components folder and then find the missing .c file in either nrf_drivers or libraries. 
+
+
+You also have to make sure that the correct nRF_Drivers and nRF_Libraries are enabled in the sdk_config.h file. If you're having compilation issues and/or linker errors then select the Configuration Wizard Tab in the bottom of the text window after opening `sdk_config.h` in the ble_app_uart example and compare it to the one in the pwm_library example.
+
+### Modifying sdk_config.c  
+
+<img src="https://github.com/bjornspockeli/elektra/blob/master/images/sdk_config.PNG" width="1000">
+
+Under nRF_Libraries the following boxes must be checked
+
+* APP_PWM_ENABLED
+
+Under nRF_Drivers the following boxes must be checked
+* PPI_ENABLED
+* TIMER_ENABLED
+    * TIMER1_ENABLED
+
+
+2 - The first thing we have to do in main.c is to include the header to the PWM library, `app_pwm.h` and create a PWM instance using the TIMER1 peripheral. This is done as shown below 
+
+```C
+    #include "app_pwm.h"
+    
+    APP_PWM_INSTANCE(PWM1,1);                       // Create the instance "PWM1" using TIMER1.
+```
+2 -	The second thing we have to do is creating the function `pwm_init()` where we configure, initialize and enable the PWM peripheral. You configure the pwm library by creating a app_pwm_config_t struct like shown below
+
+```C
+    app_pwm_config_t pwm_config = {
+        .pins               = {4, APP_PWM_NOPIN},
+        .pin_polarity       = {APP_PWM_POLARITY_ACTIVE_HIGH, APP_PWM_POLARITY_ACTIVE_LOW}, 
+        .num_of_channels    = 1,                                                          
+        .period_us          = 20000L                                                
+    };
+```
+This struct contains the information about which pins that are used as PWM pins, which polarity the pisn should have, how many channels(the number of PWM outputs, this is limited to 2 per PWM instance) and the period of the PWM signal. The struct is given as an input to the [app_pwm_init](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/group__app__pwm.html#gae3b3e1d5404fd776bbf7bf22224b4b0d) function which initializes the PWM library. 
+
+```C
+    uint32_t err_code;
+    err_code = app_pwm_init(&PWM1,&pwm_config,NULL);
+    APP_ERROR_CHECK(err_code);
+```
+
+You can initialize the PWM library with a callback function that is called when duty cycle change process is finsihed, but this is not necessary for this example so we will just pass NULL as an argument. After initializng the PWM library you have to enable the PWM instance by calling [app_pwm_enable](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/group__app__pwm.html#ga94f5d824afec86aff163f7cccedaa436).
+
+```C
+    app_pwm_enable(&PWM1);
+```
+The pwm_init() function is now finished and can add it to the `main()` function before the infinite for-loop.
+
+3 - Now that we have initialized the PWM library its time to set the duty cycle of the PWM signal to the servo using the  [app_pwm_channel_duty_set](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/group__app__pwm.html#ga071ee86851d8c0845f297df5d23a240d) function. This will set the duty cycle of the PWM signal, i.e. the percentage of the total time the signal is high or low depending on the polarity that has been chosen. If we want to set the PWM signal to be high 50% of the time, then we call `app_pwm_channel_duty_set` with the following parameters.
+
+```C
+    while (app_pwm_channel_duty_set(&PWM1, 0, 50) == NRF_ERROR_BUSY);
+```
+The `app_pwm_channel_duty_set` function should be called until it does not return `NRF_ERROR_BUSY` in order to make sure that the duty cycle is correctly set. 
+
+4 - The goal of this task was to make the servo sweep from its maximum angle to its minimum angle. This can be done by calling app_pwm_channel_duty_set twice with a delay between the two calls in the main while-loop.
+
+```C
+    while (true)
+    {
+        while (app_pwm_channel_duty_set(&PWM1, 0, duty_cycle) == NRF_ERROR_BUSY);
+        nrf_delay_ms(1000);
+        while (app_pwm_channel_duty_set(&PWM1, 0, duty_cycle) == NRF_ERROR_BUSY);
+        nrf_delay_ms(1000);
+    }
+    
+```
+The code snippet above sets the duty cycle to 0, you have to figure out the correct duty cycle values for the min and max angle. 
+
+Tips:
+* Period should be 20ms (20000us) and duty cycle  for the min and max angle corresponds to 1ms and 2ms respectivly.
+
+3 - Add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created in Task 7, step 2. Add these commands to the `nus_data_handler` and the `uart_command_handler`. Call `app_pwm_channel_duty_set` when the commands are processed by the `uart_command_handler`, i.e.
+```C 
+    case SERVO_POS_1:
+        while (app_pwm_channel_duty_set(&PWM1, 0, duty_cycle) == NRF_ERROR_BUSY);
+        break;
+```
+
+4 - Configure two buttons in the nRF Toolbox app to send the `SERVO_POS_1` and  `SERVO_POS_2` commands to your nRF52 DK.
+
+5 - Compile the project, flash it to the nRF52 DK and control the servo using the nRF Toolbox App.
+
+## TASK 3: Measure the die temperature of the nRF52 and send it to the nRF Toolbox app.
 **Scope:**  Measure the temperature of the nRF52 die and use an application timer to send the measurement to the nRF Toolbox App.
 
 ### Step 1
@@ -288,7 +403,7 @@ Compile the project and flash it to you nRF52 DK.  After pressing the button you
 
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
 
-## TASK 3: Measure the supply voltage using the SAADC and send it to the nRF Toolbox app.
+## TASK x: Measure the supply voltage using the SAADC and send it to the nRF Toolbox app.
 Scope: Use the SAADC peripheral to measure the supply voltage, and use an application timer to send the measurement to the nRF Toolbox App.
 
 ### Step 1
@@ -298,7 +413,7 @@ Scope: Use the SAADC peripheral to measure the supply voltage, and use an applic
 ### Step 3
 
 
-## TASK 4: Creating a Custom Service
+## BONUS TASK: Creating a Custom Service
 Scope: The aim of this task is simply to create one service with one characteristic without too much theory in between the steps. In this task we will be starting from scratch in the ble_app_template project.
 
-This is a larger task than the previous tasks, and it takes more time to finish this task. It's not expected that you finish this task within the limited time period of the workshop. This is instead a task that you can start on during the workshop, and finish and play around with even after this workshop.
+This is a bonus task if you have managed to finish the previous task within the time period of the workshop. Note that this is a larger task than the previous tasks, and it takes more time to finish this task. 
