@@ -20,7 +20,8 @@ All participants must download the following software:
 
 - **Latest version of Segger Embedded Studio [download page](https://www.segger.com/downloads/embedded-studio/)**
     <pre>
-    1.	Download and install Segger Embedded Studio for your operating system .
+    1.	Download and install Segger Embedded Studio for your operating system.
+          It is available for Windows, macOS, and Linux.
     2.	Run the installer and follow the installer instructions.
     </pre>
     For commercial use of Embedded Studio, follow the steps in the SEGGER Embedded studio – Getting started video to
