@@ -199,19 +199,21 @@ Red: 	5V 					- Should be connected to the pin marked 5V on your nRF52 DK.
 
 Orange: PWM Control Signal 	- Should be connected to one of the unused GPIO pins of the nRF52 DK (for example P0.4, pin number 4).
 
-1 - In order to use the app_pwm library in the ble_app_uart project you have to add the necessary .c and .h files to the project. The app_pwm library uses the following files:
+### Step 1
+
+In order to use the app_pwm library in the ble_app_uart project you have to add the necessary .c and .h files to the project. The app_pwm library uses the following files:
 
 * `app_pwm.h`
 * `app_pwm.c`
 * `nrf_drv_ppi.c`
 * `nrf_drv_timer.c`
 
-### Adding .h files 
+#### Adding .h files 
 
 <img src="https://github.com/bjornspockeli/elektra/blob/master/images/include_path.PNG" width="1000"> 
 Click the "Options for target" button in Keil, then select the C/C++ tab and clik on the "..." on the side of the "Inlude Paths" window. Navigate to the components folder and then find the missing .h file in either nrf_drivers or libraries. 
 
-### Adding .c files
+#### Adding .c files
  
 <img src="https://github.com/bjornspockeli/elektra/blob/master/images/add_c_files.png" width="1000"> 
 Right-clik the folder that you want to add the .c file to and select "Add existing files to Group '____'". Navigate to the components folder and then find the missing .c file in either nrf_drivers or libraries. 
@@ -219,7 +221,7 @@ Right-clik the folder that you want to add the .c file to and select "Add existi
 
 You also have to make sure that the correct nRF_Drivers and nRF_Libraries are enabled in the sdk_config.h file. If you're having compilation issues and/or linker errors then select the Configuration Wizard Tab in the bottom of the text window after opening `sdk_config.h` in the ble_app_uart example and compare it to the one in the pwm_library example.
 
-### Modifying sdk_config.c  
+#### Modifying sdk_config.c  
 
 <img src="https://github.com/bjornspockeli/elektra/blob/master/images/sdk_config.PNG" width="1000">
 
@@ -233,7 +235,9 @@ Under nRF_Drivers the following boxes must be checked
     * TIMER1_ENABLED
 
 
-2 - The first thing we have to do in main.c is to include the header to the PWM library, `app_pwm.h` and create a PWM instance using the TIMER1 peripheral. This is done as shown below 
+### Step 2
+
+The first thing we have to do in main.c is to include the header to the PWM library, `app_pwm.h` and create a PWM instance using the TIMER1 peripheral. This is done as shown below 
 
 ```C
     #include "app_pwm.h"
@@ -265,14 +269,18 @@ You can initialize the PWM library with a callback function that is called when 
 ```
 The pwm_init() function is now finished and can add it to the `main()` function before the infinite for-loop.
 
-3 - Now that we have initialized the PWM library its time to set the duty cycle of the PWM signal to the servo using the  [app_pwm_channel_duty_set](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/group__app__pwm.html#ga071ee86851d8c0845f297df5d23a240d) function. This will set the duty cycle of the PWM signal, i.e. the percentage of the total time the signal is high or low depending on the polarity that has been chosen. If we want to set the PWM signal to be high 50% of the time, then we call `app_pwm_channel_duty_set` with the following parameters.
+### Step 3
+
+Now that we have initialized the PWM library its time to set the duty cycle of the PWM signal to the servo using the  [app_pwm_channel_duty_set](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v12.2.0/group__app__pwm.html#ga071ee86851d8c0845f297df5d23a240d) function. This will set the duty cycle of the PWM signal, i.e. the percentage of the total time the signal is high or low depending on the polarity that has been chosen. If we want to set the PWM signal to be high 50% of the time, then we call `app_pwm_channel_duty_set` with the following parameters.
 
 ```C
     while (app_pwm_channel_duty_set(&PWM1, 0, 50) == NRF_ERROR_BUSY);
 ```
 The `app_pwm_channel_duty_set` function should be called until it does not return `NRF_ERROR_BUSY` in order to make sure that the duty cycle is correctly set. 
 
-4 - The goal of this task was to make the servo sweep from its maximum angle to its minimum angle. This can be done by calling app_pwm_channel_duty_set twice with a delay between the two calls in the main while-loop.
+### Step 4
+
+The goal of this task was to make the servo sweep from its maximum angle to its minimum angle. This can be done by calling app_pwm_channel_duty_set twice with a delay between the two calls in the main while-loop.
 
 ```C
     while (true)
@@ -289,16 +297,23 @@ The code snippet above sets the duty cycle to 0, you have to figure out the corr
 Tips:
 * Period should be 20ms (20000us) and duty cycle  for the min and max angle corresponds to 1ms and 2ms respectivly.
 
-3 - Add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created in Task 7, step 2. Add these commands to the `nus_data_handler` and the `uart_command_handler`. Call `app_pwm_channel_duty_set` when the commands are processed by the `uart_command_handler`, i.e.
+### Step 5
+
+Add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created in Task 7, step 2. Add these commands to the `nus_data_handler` and the `uart_command_handler`. Call `app_pwm_channel_duty_set` when the commands are processed by the `uart_command_handler`, i.e.
 ```C 
     case SERVO_POS_1:
         while (app_pwm_channel_duty_set(&PWM1, 0, duty_cycle) == NRF_ERROR_BUSY);
         break;
 ```
 
-4 - Configure two buttons in the nRF Toolbox app to send the `SERVO_POS_1` and  `SERVO_POS_2` commands to your nRF52 DK.
+### Step 6
 
-5 - Compile the project, flash it to the nRF52 DK and control the servo using the nRF Toolbox App.
+Configure two buttons in the nRF Toolbox app to send the `SERVO_POS_1` and  `SERVO_POS_2` commands to your nRF52 DK.
+
+
+### Step 7
+
+Compile the project, flash it to the nRF52 DK and control the servo using the nRF Toolbox App.
 
 ## TASK 3: Measure the die temperature of the nRF52 and send it to the nRF Toolbox app.
 **Scope:**  Measure the temperature of the nRF52 die and use an application timer to send the measurement to the nRF Toolbox App.
