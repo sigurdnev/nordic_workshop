@@ -215,7 +215,9 @@ Click the "Options for target" button in Keil, then select the C/C++ tab and cli
 
 #### Adding .c files
  
-<img src="https://github.com/bjornspockeli/elektra/blob/master/images/add_c_files.png" width="1000"> 
+
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/adding_libraries.png" width="500">
+
 Right-clik the folder that you want to add the .c file to and select "Add existing files to Group '____'". Navigate to the components folder and then find the missing .c file in either nrf_drivers or libraries. 
 
 
