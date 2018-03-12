@@ -231,7 +231,7 @@ We also have to make sure that the correct nRF_Drivers and nRF_Libraries are ena
 
 Open the sdk_config.h file, and set the following defines to 1:
 
-* APP_PWM_ENABLED  (line 2024)
+* APP_PWM_ENABLED  (line 2042)
 * PPI_ENABLED      (line 968)
 * TIMER_ENABLED    (line 1582)
 * TIMER1_ENABLED   (line 1649)
