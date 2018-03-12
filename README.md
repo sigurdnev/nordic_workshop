@@ -101,7 +101,7 @@ Now that we have copied the received data into the `uart_string` array we want t
         m_command = NO_COMMAND;
     }
 ```
-If the uart_string that we received is equal to the known "COMMAND_1" string, then we set the `m_command` variable to the corresponding command in enumeration we created in step 1. Expand the nus_data_handler() with this functionality.  
+If the uart_string that we received is equal to the known "COMMAND_1" string, then we set the `m_command` variable to the corresponding command in enumeration we created in step 1. Add this functionality to the nus_data_handler() function.  
 
 ### Step 5
 
