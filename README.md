@@ -70,13 +70,14 @@ In Segger Embedded Studio this should look something like this:
 
 ### Step 3
 
-Find the function `nus_data_handler`. This function is called when data is sent to the Nordic UART Service(NUS) from the nRF Toolbox app and this is where we have to look for the specific commands. The data that has been received is stored in a array pointed to by the `p_data` pointer and we want to store it in a local char array for later use. This can be done by using the [memcpy](https://www.tutorialspoint.com/c_standard_library/c_function_memcpy.htm) function. It will copy the content from cell 0 to `length` in the array pointed to by p_data into the uart_string.      
+Find the function `nus_data_handler`. This function is called when data is sent to the Nordic UART Service(NUS) from the nRF Toolbox app and this is where we have to look for the specific commands. Each time we receive data from the phone over NUS we will get the event BLE_NUS_EVT_RX_DATA. The data that has been received is stored in a array pointed to by the `p_data` pointer and we want to store it in a local char array for later use. This can be done by using the [memcpy](https://www.tutorialspoint.com/c_standard_library/c_function_memcpy.htm) function. It will copy the content from cell 0 to `length` in the array pointed to by p_data into the uart_string.
 
 ```C  
     char uart_string[BLE_NUS_MAX_DATA_LEN];
     memset(uart_string,0,BLE_NUS_MAX_DATA_LEN);
     memcpy(uart_string, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
 ```
+
 ### Step 4
 
 Now that we have copied the received data into the `uart_string` array we want to compare the content of `uart_string` with a known command. This can be done by using the [strcmp](https://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm) function, which will return 0 if `uart_string` is equal to the
