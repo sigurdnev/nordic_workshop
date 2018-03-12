@@ -237,7 +237,8 @@ Open the sdk_config.h file, and set the following defines to 1:
 * TIMER1_ENABLED   (line 1649)
 
 E.g. for APP_PWM_ENABLED it should look like this:
-<img src="https://github.com/bjornspockeli/elektra/blob/master/images/sdk_config.PNG" width="1000">
+
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/app_pwm_sdk_config.png" width="1000">
 
 Note that it's also possible to use a GUI java tool called CMSIS Configuration Wizard to modify the sdk_config.h file.
 For more information about that, you can later have a look at this and this link. But for now, we will move forward to step 2.
@@ -426,15 +427,6 @@ Click on Printf/Scanf, and set the option `Printf Floating Point Supported` to `
 Compile the project and flash it to you nRF52 DK.  After pressing the button you configured to send the `TEMP_TIMER_START` command you should be able to see the temperature in the nRF Toolbox app log ( you open this by holding your finger above the UART text to the left of the screen and swiping from left to right)  
 
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/temperature.png" width="500">
-
-## TASK x: Measure the supply voltage using the SAADC and send it to the nRF Toolbox app.
-Scope: Use the SAADC peripheral to measure the supply voltage, and use an application timer to send the measurement to the nRF Toolbox App.
-
-### Step 1
-
-### Step 2
-
-### Step 3
 
 
 ## BONUS TASK: Creating a Custom Service
