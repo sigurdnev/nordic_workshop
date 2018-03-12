@@ -223,20 +223,25 @@ Right-clik the folder that you want to add the .c file to and select "Add Existi
 
 
 
-You also have to make sure that the correct nRF_Drivers and nRF_Libraries are enabled in the sdk_config.h file. If you're having compilation issues and/or linker errors then select the Configuration Wizard Tab in the bottom of the text window after opening `sdk_config.h` in the ble_app_uart example and compare it to the one in the pwm_library example.
 
-#### Modifying sdk_config.c  
+#### Modifying sdk_config.h  
 
+We also have to make sure that the correct nRF_Drivers and nRF_Libraries are enabled in the sdk_config.h file.
+
+
+Open the sdk_config.h file, and set the following defines to 1:
+
+* APP_PWM_ENABLED  (line 2024)
+* PPI_ENABLED      (line 968)
+* TIMER_ENABLED    (line 1582)
+* TIMER1_ENABLED   (line 1649)
+
+E.g. for APP_PWM_ENABLED it should look like this:
 <img src="https://github.com/bjornspockeli/elektra/blob/master/images/sdk_config.PNG" width="1000">
 
-Under nRF_Libraries the following boxes must be checked
+Note that it's also possible to use a GUI java tool called CMSIS Configuration Wizard to modify the sdk_config.h file.
+For more information about that, you can later have a look at this and this link. But for now, we will move forward to step 2.
 
-* APP_PWM_ENABLED
-
-Under nRF_Drivers the following boxes must be checked
-* PPI_ENABLED
-* TIMER_ENABLED
-    * TIMER1_ENABLED
 
 
 ### Step 2
