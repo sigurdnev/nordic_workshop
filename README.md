@@ -81,7 +81,7 @@ Find the function `nus_data_handler`. This function is called when data is sent 
 
 ### Step 4
 
-Now that we have copied the received data into the `uart_string` array we want to compare the content of `uart_string` with a known command. This can be done by using the [strcmp](https://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm) function, which will return 0 if `uart_string` is equal to the
+Now that we have copied the received data into the `uart_string` array we want to compare the content of `uart_string` with a known command. This can be done by using the [strcmp](https://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm) function, which will return 0 if `uart_string` is equal to the command.
 
 ```C  
     if(strcmp(uart_string,"COMMAND_1") == 0 )
@@ -101,7 +101,7 @@ Now that we have copied the received data into the `uart_string` array we want t
         m_command = NO_COMMAND;
     }
 ```
-If the uart_string that we received is equal to the known "COMMAND_1" string, then we set the `m_command` variable to the corresponding command in enumeration we created in step 1.   
+If the uart_string that we received is equal to the known "COMMAND_1" string, then we set the `m_command` variable to the corresponding command in enumeration we created in step 1. Expand the nus_data_handler() with this functionality.  
 
 ### Step 5
 
