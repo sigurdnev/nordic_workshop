@@ -211,8 +211,11 @@ In order to use the app_pwm library in the ble_app_uart project you have to add 
 
 #### Adding .h files 
 
-<img src="https://github.com/bjornspockeli/elektra/blob/master/images/include_path.PNG" width="1000"> 
-Click the "Options for target" button in Keil, then select the C/C++ tab and clik on the "..." on the side of the "Inlude Paths" window. Navigate to the components folder and then find the missing .h file in either nrf_drivers or libraries. 
+Add the `app_pwm.h` file to the include list in main.c
+```C  
+    #include "app_pwm.h"
+```
+
 
 #### Adding .c files
  
