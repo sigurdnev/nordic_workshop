@@ -166,7 +166,7 @@ We also have to configure the pin connected to LED_4 as an output so make sure t
 
 ### Step 7
 
-Compile the project by pressing the F7 key, and flash it to the nRF52 DK. You can flash the project by clicking on the Target tab, and click on "Download ble_app_uart_pca10040_s132". The project will also be flahsed when start a debug seesion. A debug session can be started by pressing the F5 key twice.
+Compile the project by pressing the F7 key, and flash it to the nRF52 DK. You can flash the project by clicking on the Target tab, and click on "Download ble_app_uart_pca10040_s132". The project will also be flashed to the nRF52-DK if we start a debug seesion. A debug session can be started by pressing the F5 key twice.
 The Segger Embedded Studio project have already been configured to flash the SoftDevice for us. LED 1 on the nRF52 DK should start blinking, indicating that its advertising.  We've now completed the configuration on the nRF52 side  
 
 ### Step 8
