@@ -434,9 +434,11 @@ Compile the project and flash it to you nRF52 DK.  After pressing the button you
 
 
 ## BONUS TASK: Creating a Custom Service
+This is an bonus task if you have managed to finish the previous task within the time period of the workshop. Note that this is a larger task than the previous tasks, and it takes more time to finish this task.
+
 Scope: The aim of this task is simply to create one service with one characteristic without too much theory in between the steps. In this task we will be starting from scratch in the ble_app_template project.
 
-This is a bonus task if you have managed to finish the previous task within the time period of the workshop. Note that this is a larger task than the previous tasks, and it takes more time to finish this task. 
+
 
 ## Tutorial Steps
 <!---
