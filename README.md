@@ -77,7 +77,7 @@ Find the function `nus_data_handler`. This function is called when data is sent 
     memset(uart_string,0,BLE_NUS_MAX_DATA_LEN);
     memcpy(uart_string, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
 ```
-<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task1_Step3.PNG" width="550">
+<img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/Task1_Step3v2.PNG" width="550">
 
 ### Step 4
 
