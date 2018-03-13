@@ -41,9 +41,10 @@ Scope: Modify the ble_app_uart example to recognise specific commands sent from 
 ### Step 1: Change the device name
 
 Open the ble_app_uart example found in the nRF5_SDK_14.2.0\examples\ble_peripheral\ble_app_uart\pca10040\s132\ses folder. In the SES Project Explorer, click on the Application folder and open the main.c file. Find the `DEVICE_NAME` define and change the device to a unique name that is easily recognisable, for example by using part of your own name:
-
-#define DEVICE_NAME                     "Sigurd_UART"       
-
+    
+```C  
+#define DEVICE_NAME                     "Sigurd_UART"   
+```
 
 ### Step 2
 
@@ -60,7 +61,7 @@ We need a variable to keep track of the current command that the nRF52 should ha
 Every variable of the uart_command_t type can be set to one of the commands in the list.  We've  added a `NO_COMMAND` command which is going to be the default state when no command has been received or the last command has been completed. After declaring the enumeration type `uart_command_t` we need to create a variable `m_command` of the `uart_command_t` type and initialize it to `NO_COMMAND`, i.e.
 
 ```C  
-    uart_command_t m_command = NO_COMMAND;
+uart_command_t m_command = NO_COMMAND;
 ```
 
 In Segger Embedded Studio this should look something like this:
