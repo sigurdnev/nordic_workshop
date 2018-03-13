@@ -313,8 +313,7 @@ Tips:
 * Period should have been set to 20ms (20000us) and duty cycle  for the min and max angle corresponds to 1ms and 2ms respectivly.
 
 ### Step 5
-
-Add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created in Task 1, step 2. Add these commands to the `nus_data_handler` and the `uart_command_handler`. Call `app_pwm_channel_duty_set` when the commands are processed by the `uart_command_handler`, i.e.
+Let's now control the servo using BLE instead. We can remove the code from step 4, and we can add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created in Task 1, step 2. Add these commands to the `nus_data_handler` and the `uart_command_handler`. Call `app_pwm_channel_duty_set` when the commands are processed by the `uart_command_handler`, i.e.
 ```C 
     case SERVO_POS_1:
         while (app_pwm_channel_duty_set(&PWM1, 0, duty_cycle) == NRF_ERROR_BUSY);
