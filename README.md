@@ -243,7 +243,7 @@ E.g. for APP_PWM_ENABLED it should look like this:
 <img src="https://github.com/sigurdnev/nordic_workshop/blob/master/images/app_pwm_sdk_config.png" width="1000">
 
 Note that it's also possible to use a GUI java tool called CMSIS Configuration Wizard to modify the sdk_config.h file.
-For more information about that, you can later have a look at this and this link. But for now, we will move forward to step 2.
+For more information about that, you can later have a look at [this](https://www.youtube.com/watch?v=b0MxWaAjMco) and [this link](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v14.2.0/sdk_config.html?cp=4_0_0_1_6_4_1#sdk_config_ide_ses). But for now, we will move forward to step 2.
 
 
 
