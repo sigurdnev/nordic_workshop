@@ -293,11 +293,11 @@ Now that we have initialized the PWM library its time to set the duty cycle of t
 ```
 The `app_pwm_channel_duty_set` function should be called until it does not return `NRF_ERROR_BUSY` in order to make sure that the duty cycle is correctly set. 
 
-### Step 5
 
 The goal of this task was to make the servo sweep from its maximum angle to its minimum angle. This can be done by calling app_pwm_channel_duty_set twice with a delay between the two calls in the main while-loop.
 
 ```C
+    uint16_t duty_cycle = 0;
     while (true)
     {
         while (app_pwm_channel_duty_set(&PWM1, 0, duty_cycle) == NRF_ERROR_BUSY);
@@ -310,9 +310,9 @@ The goal of this task was to make the servo sweep from its maximum angle to its 
 The code snippet above sets the duty cycle to 0, you have to figure out the correct duty cycle values for the min and max angle. 
 
 Tips:
-* Period should be 20ms (20000us) and duty cycle  for the min and max angle corresponds to 1ms and 2ms respectivly.
+* Period should have been set to 20ms (20000us) and duty cycle  for the min and max angle corresponds to 1ms and 2ms respectivly.
 
-### Step 6
+### Step 5
 
 Add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created in Task 1, step 2. Add these commands to the `nus_data_handler` and the `uart_command_handler`. Call `app_pwm_channel_duty_set` when the commands are processed by the `uart_command_handler`, i.e.
 ```C 
@@ -321,12 +321,12 @@ Add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created
         break;
 ```
 
-### Step 7
+### Step 6
 
 Configure two buttons in the nRF Toolbox app to send the `SERVO_POS_1` and  `SERVO_POS_2` commands to your nRF52 DK.
 
 
-### Step 8
+### Step 7
 
 Compile the project, flash it to the nRF52 DK and control the servo using the nRF Toolbox App.
 
