@@ -250,10 +250,12 @@ For more information about that, you can later have a look at [this](https://www
 
 ### Step 2
 
-The first thing we have to do in main.c is to include the header to the PWM library, `app_pwm.h` and create a PWM instance using the TIMER1 peripheral. This is done as shown below 
+The first thing we have to do in main.c is to include the header to the PWM library, `app_pwm.h`, `nrf_delay.h` 
+and create a PWM instance using the TIMER1 peripheral. This is done as shown below 
 
 ```C
     #include "app_pwm.h"
+    #include "nrf_delay.h"
     
     APP_PWM_INSTANCE(PWM1,1);                       // Create the instance "PWM1" using TIMER1.
 ```
