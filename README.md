@@ -314,6 +314,11 @@ The code snippet above sets the duty cycle to 0, you have to figure out the corr
 Tips:
 * Period should have been set to 20ms (20000us) and duty cycle  for the min and max angle corresponds to 1ms and 2ms respectivly.
 
+<details>
+  <summary>Click for solution</summary>
+  Use 5 and 10 for the duty_cycle for min/max
+</details>
+
 ### Step 5
 Let's now control the servo using BLE instead. We can remove the code from step 4, and we can add `SERVO_POS_1` and  `SERVO_POS_2` to the `uart_command_t` enumeration created in Task 1, step 2. Add these commands to the `nus_data_handler` and the `uart_command_handler`. Call `app_pwm_channel_duty_set` when the commands are processed by the `uart_command_handler`, i.e.
 ```C 
